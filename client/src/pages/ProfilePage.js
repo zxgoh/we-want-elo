@@ -137,7 +137,6 @@ function ProfilePage({ match }) {
         <div className="ChangeBioBox">
           <textarea
           type="text"
-          // rows="4" cols="80"
           rows="8" cols="140"
           placeholder="About yourself..."
             onChange={(event) => {
@@ -167,13 +166,17 @@ function ProfilePage({ match }) {
       ) : owner.steamid === user.id ? (
         ""
       ) : addComment ? (
-        <div>
+        <div className="RatingDescriptionBox">
           <input
+          type="text"
+          rows="8" cols="140"
+          placeholder="About yourself..."
             onChange={(event) => {
               setNewComment(event.target.value);
             }}
           ></input>{" "}
           <select
+          className="RatingOptionBox"
             onChange={(event) => {
               setNewRating(event.target.value);
             }}
@@ -184,18 +187,37 @@ function ProfilePage({ match }) {
             <option value="4"> 4 </option>
             <option value="5"> 5 </option>
           </select>
-          <button onClick={() => submitComment()}>Add Review</button>
+          <div className='AddReviewButton1'>
+          <button className="Reviewbtn1" onClick={() => submitComment()}>Add Review</button>
+          </div>
         </div>
       ) : (
-        <button onClick={() => setAddComment(true)}>Add Review?</button>
+        <div className='AddReviewButton2'>
+        <button className="Reviewbtn2" onClick={() => setAddComment(true)}>Add Review</button>
+        </div>
       )}
       {allReviews.map((val, key) => {
         return (
           <div>
-            <h1 class="listingheader"> {val.commentername} says : </h1>
-            <h2 class="listingvalue">{val.desc}</h2>
-            <h2 class="listingheader">And gave a rating of: </h2>
-            <h2 class="listingvalue">{val.rating}</h2>
+            {/* <header class='line'>
+            <mark class='ReviewLeft'> {val.commentername} says : </mark>
+            <mark class='ReviewRight'>{val.desc} </mark>
+            </header>            
+            <header class='line'>
+            <mark class='ReviewLeft'>and gave a rating of: </mark>
+            <mark class='ReviewRight'>{val.rating} </mark>
+            </header> */}
+            <header class='ReviewContents'>
+            <header class='ReviewLineHeader'>
+              Review by {val.commentername}: 
+            </header>
+            <header class='ReviewLine'>
+              Rating: {val.rating}/5
+            </header>
+            <header class='ReviewLine'>
+              Description: {val.desc}
+            </header>
+            </header>
           </div>
         );
       })}
